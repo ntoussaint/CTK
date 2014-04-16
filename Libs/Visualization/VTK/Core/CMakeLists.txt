@@ -83,11 +83,15 @@ if(${VTK_VERSION_MAJOR} GREATER 5)
     vtkInteractionStyle
     vtkRenderingAnnotation
     vtkRenderingCore
-    vtkRenderingFreeTypeFontConfig
     vtkRenderingFreeTypeOpenGL
     vtkRenderingOpenGL
     vtkTestingRendering
     )
+  if (NOT WIN32)
+    list(APPEND VTK_LIBRARIES
+      vtkRenderingFreeTypeFontConfig
+      )
+  endif()
 else()
   set(VTK_LIBRARIES
     vtkCommon
