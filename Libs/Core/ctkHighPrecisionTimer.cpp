@@ -21,4 +21,4 @@
 
 #include "ctkHighPrecisionTimer.h"
 
-double ctkHighPrecisionTimer::timeConvert = 0.0;
+// double ctkHighPrecisionTimer::timeConvert = 0.0;

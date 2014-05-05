@@ -70,10 +70,11 @@ public:
 
   inline qint64 elapsedMicro();
 
-private:
-
   // only used on MacOS, but needs to be defined in the .cpp file
-  static double timeConvert;
+  double timeConvert;
+  
+ private:
+
 
 #ifdef _ctk_use_high_precision_timer_fallback
   QTime startTime;
