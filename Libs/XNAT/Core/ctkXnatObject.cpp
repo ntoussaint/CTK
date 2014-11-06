@@ -25,6 +25,7 @@
 #include "ctkXnatDataModel.h"
 #include "ctkXnatSession.h"
 #include "ctkXnatDefaultSchemaTypes.h"
+#include "ctkXnatResource.h"
 
 #include <QDateTime>
 #include <QDebug>
@@ -62,6 +63,21 @@ ctkXnatObject::~ctkXnatObject()
   {
     delete child;
   }
+}
+
+
+// --------------------------------------------------------------------------
+QList<ctkXnatResource*> ctkXnatObject::resources() const
+{
+  QList<ctkXnatResource*> result;
+  foreach(ctkXnatObject* obj, this->children())
+  {
+    if (ctkXnatResource* o = dynamic_cast<ctkXnatResource*>(obj))
+    {
+      result.push_back(o);
+    }
+  }
+  return result;
 }
 
 //----------------------------------------------------------------------------
@@ -315,11 +331,12 @@ void ctkXnatObject::save()
 void ctkXnatObject::fetchResources(const QString& path)
 {
   QString query = this->resourceUri() + path;
+  
   ctkXnatSession* const session = this->session();
   QUuid queryId = session->httpGet(query);
 
   QList<ctkXnatObject*> resources = session->httpResults(queryId,
-                                                           ctkXnatDefaultSchemaTypes::XSI_RESOURCE);
+							 ctkXnatDefaultSchemaTypes::XSI_RESOURCE);
 
   foreach (ctkXnatObject* resource, resources)
   {

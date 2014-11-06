@@ -28,6 +28,8 @@
 #include "ctkXnatDefaultSchemaTypes.h"
 
 class ctkXnatResourcePrivate;
+class ctkXnatFile;
+
 
 /**
  * @ingroup XNAT_Core
@@ -47,6 +49,9 @@ public:
   void reset();
 
   void download(const QString& filename);
+
+  QList<ctkXnatFile*> files() const;
+  
 
 private:
 

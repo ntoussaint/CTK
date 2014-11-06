@@ -29,6 +29,8 @@
 
 class ctkXnatDataModel;
 class ctkXnatProjectPrivate;
+class ctkXnatSubject;
+
 
 /**
  * @ingroup XNAT_Core
@@ -55,6 +57,8 @@ public:
   const QString& piLastName() const;
   void setPiLastName(const QString& piLastName);
 
+  QList<ctkXnatSubject*> subjects() const;
+  
   void reset();
 
 private:
