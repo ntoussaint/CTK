@@ -30,9 +30,11 @@
 #include <QObject>
 #include <QString>
 #include <QMetaType>
+#include <QDateTime>
 
 class ctkXnatSession;
 class ctkXnatObjectPrivate;
+class ctkXnatResource;
 
 /**
  * @ingroup XNAT_Core
@@ -48,6 +50,8 @@ public:
   /// Destructs the ctkXnatObject.
   virtual ~ctkXnatObject();
 
+  QList<ctkXnatResource*> resources() const;
+  
   /// Gets the ID of the object.
   QString id() const;
 

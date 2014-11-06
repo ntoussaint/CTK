@@ -23,6 +23,7 @@
 
 #include "ctkXnatSession.h"
 #include "ctkXnatObjectPrivate.h"
+#include "ctkXnatFile.h"
 
 //----------------------------------------------------------------------------
 class ctkXnatResourcePrivate : public ctkXnatObjectPrivate
@@ -47,6 +48,22 @@ ctkXnatResource::ctkXnatResource(ctkXnatObject* parent, const QString& schemaTyp
 ctkXnatResource::~ctkXnatResource()
 {
 }
+
+
+// --------------------------------------------------------------------------
+QList<ctkXnatFile*> ctkXnatResource::files() const
+{
+  QList<ctkXnatFile*> result;
+  foreach(ctkXnatObject* obj, this->children())
+  {
+    if (ctkXnatFile* o = dynamic_cast<ctkXnatFile*>(obj))
+    {
+      result.push_back(o);
+    }
+  }
+  return result;
+}
+
 
 //----------------------------------------------------------------------------
 QString ctkXnatResource::resourceUri() const
@@ -78,6 +95,11 @@ void ctkXnatResource::fetchImpl()
       label = "NO NAME";
     }
     file->setProperty("label", label);
+    
+    QString id = file->property("ID");
+    if (id.isEmpty())
+      file->setProperty("ID", label);
+
     this->add(file);
   }
 }

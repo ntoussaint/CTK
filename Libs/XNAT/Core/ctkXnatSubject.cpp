@@ -67,6 +67,21 @@ ctkXnatSubject::~ctkXnatSubject()
 {
 }
 
+
+// --------------------------------------------------------------------------
+QList<ctkXnatExperiment*> ctkXnatSubject::experiments() const
+{
+  QList<ctkXnatExperiment*> result;
+  foreach(ctkXnatObject* obj, this->children())
+  {
+    if (ctkXnatExperiment* o = dynamic_cast<ctkXnatExperiment*>(obj))
+    {
+      result.push_back(o);
+    }
+  }
+  return result;
+}
+
 //----------------------------------------------------------------------------
 const QString& ctkXnatSubject::insertDate() const
 {
